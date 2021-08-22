@@ -46,6 +46,7 @@ export class SigninComponent implements OnInit {
       if(res) {
         // Set user cookie to expire in 24 hours.
         this.cookieService.set('session_user', empId, 1);
+        this.router.navigate(['/']);
       }
       else {
         this.error = "The employeeId you entered is not valid, please try again.";
