@@ -1,3 +1,10 @@
+/*==============================
+; Title: App Module
+; Date: 9 Aug 2021
+; Author: George Henderson
+; Description: Contains metadata for the application compile/launch.
+==============================*/
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

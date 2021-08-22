@@ -1,3 +1,10 @@
+/*==============================
+; Title: Base-Layout Component
+; Date: 9 August 2021
+; Author: George Henderson
+; Description: Class file for 'base-layout' component.
+==============================*/
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
 export class BaseLayoutComponent implements OnInit {
 
   year: number = Date.now();
-  
+
   constructor() { }
 
   ngOnInit(): void {

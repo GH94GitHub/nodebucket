@@ -1,3 +1,10 @@
+/*==============================
+; Title: App Component
+; Date: 9 August 2021
+; Author: George Henderson
+; Description: Class file for App Component
+==============================*/
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +13,5 @@ import { Component } from '@angular/core';
   styles: [``]
 })
 export class AppComponent {
-  
+
 }

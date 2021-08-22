@@ -1,3 +1,10 @@
+/*==============================
+; Title: App.js
+; Date: 9 August 2021
+; Author: George Henderson
+; Description: Contains server logic used at runtime.
+==============================*/
+
 /**
  * Require statements
  */

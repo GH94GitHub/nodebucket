@@ -1,5 +1,8 @@
 /*==================================
-TODO:attribution
+; Title: Employee Model
+; Date: 16 August 2021
+; Author: George Henderson
+; Description: Contains the mongoose model for the employee.
 =================================*/
 
 const mongoose = require('mongoose');

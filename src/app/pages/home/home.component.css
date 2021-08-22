@@ -1,14 +1,19 @@
+/*=====================
+; Title: Home Styles
+; Date: 9 August 2021
+; Author: George Henderson
+; Description: Contains the styles for the 'home' component.
+=====================*/
 .main-welcome {
     margin-top: 30px;
   }
-  
+
   .title {
     text-align: center;
     font-weight: lighter;
   }
-  
+
   .subtitle {
     text-align: center;
     font-size: 14px;
   }
-  

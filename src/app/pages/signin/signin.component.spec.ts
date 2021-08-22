@@ -1,3 +1,10 @@
+/*==============================
+; Title: Sign-In Test Suite
+; Date: 18 August 2021
+; Author: George Henderson
+; Description: Test suite for 'sign-in' component.
+==============================*/
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SigninComponent } from './signin.component';

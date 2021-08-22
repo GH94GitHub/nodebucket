@@ -1,3 +1,10 @@
+/*==============================
+; Title: Auth-Layout Component
+; Date: 9 August 2021
+; Author: George Henderson
+; Description: Class file for 'auth-layout' component.
+==============================*/
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({

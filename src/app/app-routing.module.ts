@@ -1,3 +1,11 @@
+/*==============================
+; Title: App Routing
+; Date: 9 Aug 2021
+; Author: George Henderson
+; Description: Contains data objects mapping routes to their components.
+==============================*/
+
+
 import { HomeComponent } from './pages/home/home.component';
 import { BaseLayoutComponent } from './shared/base-layout/base-layout.component';
 import { NgModule } from '@angular/core';
