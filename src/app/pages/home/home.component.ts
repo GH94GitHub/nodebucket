@@ -81,8 +81,10 @@ export class HomeComponent implements OnInit {
           console.log(err)
         }, () => {
           console.log('--onComplete--')
-          console.log( data )
-          this.todo.push(data);
+          this.todo.push(this.employee.todo[0]);
+          this.done.push(this.employee.done[0]);
+          console.log(this.todo);
+          console.log(this.done);
         })
       }
     })
