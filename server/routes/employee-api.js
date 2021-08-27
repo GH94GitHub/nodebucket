@@ -55,7 +55,7 @@ router.post('/:empId/tasks', async (req, res) => {
   try {
     // Construct a task object and fill it
     const task = {
-      text: req.params.text
+      text: req.body.text
     }
 
     Employee.findOneAndUpdate({ empId: req.params.empId }, { $push: { todo: task } }, function(err, employee) {
