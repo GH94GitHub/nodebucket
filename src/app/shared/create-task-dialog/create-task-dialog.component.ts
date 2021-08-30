@@ -1,3 +1,10 @@
+/*============================
+; Title: Create-Task-Dialog
+; Date: 29 August 2021
+; Author: George Henderson
+; Description: Class file for 'create-task-dialog' component
+============================*/
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
