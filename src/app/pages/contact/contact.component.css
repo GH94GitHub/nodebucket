@@ -1,0 +1,17 @@
+/*==========================
+; Title: Contact Styles
+; Author: George Henderson
+; Date: 29 August 2021
+; Description: Contains the styles for the contact component.
+;==========================*/
+
+mat-icon {
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.contact-card {
+  width: fit-content;
+  margin: auto;
+  text-align: center;
+}

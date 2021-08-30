@@ -1,3 +1,11 @@
+/*====================================
+; Title: Contact Component Testing
+; Date: 29 August 2021
+; Author: George Henderson
+; Description: Test suite for contact component.
+====================================*/
+
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ContactComponent } from './contact.component';

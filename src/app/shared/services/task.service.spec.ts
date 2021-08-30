@@ -1,3 +1,10 @@
+/*====================================
+; Title: Task Service Testing
+; Date: 29 August 2021
+; Author: George Henderson
+; Description: Test suite for the task service.
+====================================*/
+
 import { TestBed } from '@angular/core/testing';
 
 import { TaskService } from './task.service';
