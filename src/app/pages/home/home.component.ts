@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
           console.log(res);
 
           this.employee = res;
-          console.log('--This.employee--') //! properly assign this.employee
+          console.log('--This.employee--')
           console.log(this.employee);
         }, err => {
           console.log('--onError of the createTask service call--');
