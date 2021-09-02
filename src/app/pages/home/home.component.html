@@ -22,18 +22,18 @@
   </div>
 
   <div fxFlex>
-    <div fxLayout="row" fxLayoutGap="15px" class="task-container">
+    <div cdkDropListGroup fxLayout="row" fxLayoutGap="15px" class="task-container">
 
       <div fxFlex>
         <mat-card class="mat-elevation-z0">
           <mat-card-title>ToDo</mat-card-title>
 
           <mat-card-content>
-            <div class="task-column">
+            <div cdkDropList id="todo" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" class="task-column">
 
               <div *ngFor="let item of todo">
 
-                <mat-card class="mat-elevation-z0 task-card">
+                <mat-card class="mat-elevation-z0" class="task-card" cdkDrag>
                   <mat-card-content>
                     <div fxLayout="row">
                       <div fxFlex>
@@ -41,6 +41,7 @@
                       </div>
                     </div>
                   </mat-card-content>
+                  <div class="black-dotted-placeholder" *cdkDragPlaceholder></div>
                 </mat-card>
 
               </div>
@@ -55,11 +56,11 @@
           <mat-card-title>Done</mat-card-title>
 
           <mat-card-content>
-            <div class="task-column">
+            <div cdkDropList id="done" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" class="task-column">
 
               <div *ngFor="let item of done">
 
-                <mat-card class="mat-elevation-z0 task-card">
+                <mat-card class="mat-elevation-z0" class="task-card" cdkDrag>
                   <mat-card-content>
                     <div fxLayout="row">
                       <div fxFlex>
@@ -67,6 +68,7 @@
                       </div>
                     </div>
                   </mat-card-content>
+                  <div class="black-dotted-placeholder" *cdkDragPlaceholder></div>
                 </mat-card>
 
               </div>
