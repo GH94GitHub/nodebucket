@@ -30,6 +30,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { CreateTaskDialogComponent } from './shared/create-task-dialog/create-task-dialog.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 
@@ -59,7 +61,8 @@ import { ContactComponent } from './pages/contact/contact.component';
     MatInputModule,
     MatMenuModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
