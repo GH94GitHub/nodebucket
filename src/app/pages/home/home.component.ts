@@ -12,6 +12,7 @@ import { TaskService } from '../../shared/services/task.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from '../../shared/create-task-dialog/create-task-dialog.component';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-home',
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit {
   }
 
 /**
- *
+ * Opens a dialog box containing a form for users to create a task
  */
   openCreateTaskDialog() {
     const dialogRef = this.dialog.open(CreateTaskDialogComponent, {
@@ -61,30 +62,47 @@ export class HomeComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('--empId--')
-      console.log(this.empId);
-
-      console.log()
       if (data) {
-        console.log('--Data Exists--');
-        console.log(data);
-
         this.taskService.createTask(this.empId, data.text).subscribe(res => {
-          console.log('--Inside createTask Result--')
-          console.log(res);
-
           this.employee = res;
-          console.log('--This.employee--')
-          console.log(this.employee);
-        }, err => {
-          console.log('--onError of the createTask service call--');
-          console.log(err)
-        }, () => {
-          console.log('--onComplete--')
-          console.log( data )
+        },
+        err => {},
+        () => {
           this.todo.push(data);
         })
       }
     })
+  }
+
+  /**
+   * Event called when an item is dropped inside of a cdkDropList
+   * @param e
+   */
+  drop(e: CdkDragDrop<string[]>) {
+    console.log('--Drop Event--');
+    console.log(e);
+
+    // If item never moved dropLists nor index, return
+    if (e.previousContainer === e.container && e.previousIndex === e.currentIndex) {
+      return;
+    }
+    else {
+      // Item was moved to a different location within the same dropList
+      if (e.previousContainer === e.container) {
+        moveItemInArray(e.container.data, e.previousIndex, e.currentIndex);
+      }
+      // Moved from todo -> done or from done -> todo
+      else {
+        transferArrayItem(e.previousContainer.data, e.container.data, e.previousIndex, e.currentIndex)
+      }
+      // Update server state
+      this.taskService.updateTasks(this.empId, {
+        todo: this.todo,
+        done: this.done
+      }).subscribe(employee => {
+        console.log('--Updated employee--');
+        console.log(employee);
+      });
+    }
   }
 }
