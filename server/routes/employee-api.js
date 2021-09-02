@@ -51,6 +51,9 @@ router.get('/:empId', async (req, res) => {
   }
 });
 
+/**
+ * POST /api/employees/:empId/tasks
+ */
 router.post('/:empId/tasks', async (req, res) => {
   try {
     // Construct a task object and fill it
@@ -82,6 +85,9 @@ router.post('/:empId/tasks', async (req, res) => {
   }
 });
 
+/**
+ * GET /api/employees/:empId/tasks
+ */
 router.get('/:empId/tasks', async (req, res) => {
   try {
     Employee.findOne({ empId: req.params.empId }, async (err, employee) => {
@@ -112,5 +118,96 @@ router.get('/:empId/tasks', async (req, res) => {
     })
   }
 });
+
+/**
+ * PUT /api/employees/:empId/tasks
+ * Reinitializes the todo and done arrays with body of request
+ * TODO: Build/test client consumption
+ */
+router.put('/:empId/tasks', async (req, res) => {
+
+  try {
+    const filter = { empId: req.params.empId }
+    let update = {}
+
+    if(req.body.todo) {
+      update.todo = req.body.todo;
+    }
+    if(req.body.done) {
+      update.done = req.body.done;
+    }
+    // If neither of these items are provided send error?
+
+    Employee.findOneAndUpdate(filter, update, {'new': true}, (err, employee) => {
+      // Error
+      if (err) {
+        console.log(err);
+        res.status(500).send({
+          message: 'MongoDB server error ' + err.message
+        })
+      }
+      // Success
+      else {
+        console.log(employee);
+        res.json(employee);
+      }
+    })
+  }
+  catch(e) {
+    console.log(e);
+    // Send internal server error, with the message
+    res.status(500).send({
+      'message':"Internal server error: " + e.message
+    });
+  }
+});
+
+/**
+ * DELETE /api/employees/:empId/tasks/:taskId
+ */
+router.delete('/:empId/tasks/:taskId', async (req, res) => {
+  try {
+    const taskId = req.params.taskId;
+    const filter = {
+      empId: req.params.empId
+    };
+    const update = {
+      $pull: {
+        todo: {
+          _id: taskId
+        },
+        done: {
+          _id: taskId
+        }
+      }
+    }
+
+    // Find the Employee
+    Employee.findOneAndUpdate( filter, update, { 'new': true }, (err, employee) => {
+      // Error
+      if (err) {
+        console.log(err);
+        res.status(500).send({
+          message: 'MongoDB server error ' + err.message
+        });
+      }
+      // Success
+      else {
+        console.log('-- New Employee--');
+        console.log(employee);
+        res.json(employee);
+      }
+    })
+  }
+  catch(e) {
+    console.log(e);
+    // Send internal server error, with the message
+    res.status(500).send({
+      'message':"Internal server error: " + e.message
+    });
+  }
+});
+
+
 
 module.exports = router;
