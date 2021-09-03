@@ -61,7 +61,7 @@ router.post('/:empId/tasks', async (req, res) => {
       text: req.body.text
     }
 
-    Employee.findOneAndUpdate({ empId: req.params.empId }, { $push: { todo: task } }, function(err, employee) {
+    Employee.findOneAndUpdate({ empId: req.params.empId }, { $push: { todo: task } }, { 'new':true }, function(err, employee) {
       // Error
       if(err) {
         console.log(err);
@@ -72,7 +72,10 @@ router.post('/:empId/tasks', async (req, res) => {
       // Successful
       else {
         console.log(employee);
-        res.json(employee);
+
+        let i = employee.todo.length - 1;
+
+        res.json(employee.todo[i]);
       }
     })
   }
@@ -122,7 +125,6 @@ router.get('/:empId/tasks', async (req, res) => {
 /**
  * PUT /api/employees/:empId/tasks
  * Reinitializes the todo and done arrays with body of request
- * TODO: Build/test client consumption
  */
 router.put('/:empId/tasks', async (req, res) => {
 
