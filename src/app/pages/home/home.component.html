@@ -4,17 +4,7 @@
 ; Author: George Henderson
 ; Description: HTML template for 'home' component.
 ----------------------------------->
-
-<div fxLayout="column" class="main-welcome">
-  <div fxFlex>
-    <h1 class="title">
-      Welcome to WEB 450's - nodebucket Project <br />
-      <span class="subtitle">
-        Pay close attention to the requirements, double and triple check the files for code attribution, and do not wait unitl the last minute to begin working on each item.
-      </span>
-    </h1>
-  </div>
-
+<div fxLayout="column">
   <div fxFlex>
     <div class="task-container" fxLayout="column">
       <button mat-flat-button color="primary" (click)="openCreateTaskDialog()">Create Task</button>
@@ -37,7 +27,13 @@
                   <mat-card-content>
                     <div fxLayout="row">
                       <div fxFlex>
-                        {{ item.text }}
+                        <div fxLayout="row">
+                          <div fxFlex="80%">{{ item.text }}</div>
+                          <div fxFlex="20%"><mat-icon tabIndex="0"
+                            (click)="openConfirmDialog(item, 'todo')"
+                            (keyup.enter)="openConfirmDialog(item, 'todo')"
+                            (keyup.space)="openConfirmDialog(item, 'todo')">delete</mat-icon></div>
+                        </div>
                       </div>
                     </div>
                   </mat-card-content>
@@ -64,7 +60,13 @@
                   <mat-card-content>
                     <div fxLayout="row">
                       <div fxFlex>
-                        {{ item.text }}
+                        <div fxLayout="row">
+                          <div fxFlex="80%">{{ item.text }}</div>
+                          <div fxFlex="20%"><mat-icon tabIndex="0"
+                            (click)="openConfirmDialog(item, 'done')"
+                            (keyup.enter)="openConfirmDialog(item, 'done')"
+                            (keyup.space)="openConfirmDialog(item, 'done')">delete</mat-icon></div>
+                        </div>
                       </div>
                     </div>
                   </mat-card-content>
