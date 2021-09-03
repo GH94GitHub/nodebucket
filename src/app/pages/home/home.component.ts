@@ -13,6 +13,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from '../../shared/create-task-dialog/create-task-dialog.component';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ConfirmTaskDialogComponent } from '../../shared/confirm-task-dialog/confirm-task-dialog.component';
+import { MatMenuItem } from '@angular/material/menu';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +24,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 export class HomeComponent implements OnInit {
 
   employee: Employee;
+  item: Item;
   todo: Item[];
   done: Item[];
   empId: number;
@@ -62,16 +65,73 @@ export class HomeComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(data => {
+
+      // If user entered a task
       if (data) {
         this.taskService.createTask(this.empId, data.text).subscribe(res => {
-          this.employee = res;
+          console.log('--Employee Created--');
+          console.log(res);
+          this.item = res;
         },
         err => {},
         () => {
-          this.todo.push(data);
+          this.todo.push(this.item);
+          console.log('--createTask onComplete Client-Side todo array after push--');
+          console.log(this.todo)
         })
       }
     })
+  }
+
+  /**
+   * Opens a dialog box asking the user to confirm the deletion of a task
+   * @param item
+   * @param targetArray either 'todo' or 'done' specifying which to delete from
+   */
+  openConfirmDialog(item, targetArray: string) {
+    const dialogRef = this.dialog.open( ConfirmTaskDialogComponent);
+
+    dialogRef.afterClosed().subscribe(isConfirmed => {
+
+      // User confirmed the dialog
+      if (isConfirmed) {
+        console.log('--Dialog confirmed--')
+
+        console.log('--Item--')
+        console.log(item);
+
+        // Delete the task
+        this.taskService.deleteTask(this.empId, item._id).subscribe(employee => {
+
+          console.log('--Deleted Task--');
+          console.log(employee);
+
+        }, err => { // Error
+
+          console.log('--Error Deleting Task--');
+          console.log(err)
+
+        }, () => { // onComplete
+
+          // Delete item from 'todo' array
+          if (targetArray === 'todo') {
+            console.log('--item.text--')
+            console.log(item.text);
+            let i = this.todo.indexOf(item);
+            console.log(i);
+
+            this.todo.splice(i, 1);
+          }
+          // Delete item from 'done' array
+          else {
+            let i = this.done.indexOf(item);
+
+            this.done.splice(i, 1);
+          }
+
+        })
+      }
+    });
   }
 
   /**
