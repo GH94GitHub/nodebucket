@@ -31,6 +31,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CreateTaskDialogComponent } from './shared/create-task-dialog/create-task-dialog.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ConfirmTaskDialogComponent } from './shared/confirm-task-dialog/confirm-task-dialog.component';
 
 
 
@@ -43,7 +44,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AuthLayoutComponent,
     SigninComponent,
     CreateTaskDialogComponent,
-    ContactComponent
+    ContactComponent,
+    ConfirmTaskDialogComponent
   ],
   imports: [
     BrowserModule,
