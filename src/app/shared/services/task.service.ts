@@ -47,4 +47,14 @@ export class TaskService {
   updateTasks(empId: number, tasks: any) {
     return this.http.put('/api/employees/' + empId + "/tasks", tasks);
   }
+
+  /**
+   * Creates an HTTP DELETE request given the empId, and the taskId
+   * @param empId
+   * @param taskId
+   * @returns Http DELETE request observable
+   */
+  deleteTask(empId: number, taskId: number) {
+    return this.http.delete('/api/employees/' + empId + '/tasks/' + taskId);
+  }
 }
