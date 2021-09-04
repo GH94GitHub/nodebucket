@@ -210,6 +210,4 @@ router.delete('/:empId/tasks/:taskId', async (req, res) => {
   }
 });
 
-
-
 module.exports = router;
