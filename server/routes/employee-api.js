@@ -138,7 +138,7 @@ router.put('/:empId/tasks', async (req, res) => {
     if(req.body.done) {
       update.done = req.body.done;
     }
-    // If neither of these items are provided send error?
+    // TODO: If neither of these items are provided don't send the request
 
     Employee.findOneAndUpdate(filter, update, {'new': true}, (err, employee) => {
       // Error
