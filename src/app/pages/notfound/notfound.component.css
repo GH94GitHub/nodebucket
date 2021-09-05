@@ -1,0 +1,14 @@
+.container  {
+  height: 100%;
+}
+
+.img404 {
+  background-image: url("../../../assets/404-system-error.png" );
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.imgChildren {
+  margin-left: 30%;
+  max-width: 300px;
+}
