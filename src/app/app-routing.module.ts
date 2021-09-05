@@ -14,6 +14,7 @@ import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component'
 import { SigninComponent } from './pages/signin/signin.component';
 import { AuthGuard } from './shared/auth.guard';
 import { ContactComponent } from './pages/contact/contact.component';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,11 @@ const routes: Routes = [
         component: SigninComponent
       }
     ]
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: NotfoundComponent
   }
 ];
 
