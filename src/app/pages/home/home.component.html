@@ -4,82 +4,88 @@
 ; Author: George Henderson
 ; Description: HTML template for 'home' component.
 ----------------------------------->
-<div fxLayout="column">
-  <div fxFlex>
-    <div class="task-container" fxLayout="column">
-      <button mat-flat-button color="primary" (click)="openCreateTaskDialog()">Create Task</button>
-    </div>
-  </div>
+<div fxLayout="row" style="margin: 30px auto">
+  <div fxFlex="85%" fxFlex.gt-md="70%" style="margin: auto;">
 
-  <div fxFlex>
-    <div cdkDropListGroup fxLayout="row" fxLayoutGap="15px" class="task-container">
-
+    <div fxLayout="column" fxLayoutGap="20px">
       <div fxFlex>
-        <mat-card class="mat-elevation-z0">
-          <mat-card-title>ToDo</mat-card-title>
-
-          <mat-card-content>
-            <div cdkDropList id="todo" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" class="task-column">
-
-              <div *ngFor="let item of todo">
-
-                <mat-card class="mat-elevation-z0" class="task-card" cdkDrag>
-                  <mat-card-content>
-                    <div fxLayout="row">
-                      <div fxFlex>
-                        <div fxLayout="row">
-                          <div fxFlex="80%">{{ item.text }}</div>
-                          <div fxFlex="20%"><mat-icon tabIndex="0"
-                            (click)="openConfirmDialog(item, 'todo')"
-                            (keyup.enter)="openConfirmDialog(item, 'todo')"
-                            (keyup.space)="openConfirmDialog(item, 'todo')">delete</mat-icon></div>
-                        </div>
-                      </div>
-                    </div>
-                  </mat-card-content>
-                  <div class="black-dotted-placeholder" *cdkDragPlaceholder></div>
-                </mat-card>
-
-              </div>
-
-            </div>
-          </mat-card-content>
-        </mat-card>
+        <div class="task-container" fxLayout="column">
+          <button style="width: 40%;" mat-flat-button color="primary" (click)="openCreateTaskDialog()">Create Task</button>
+        </div>
       </div>
 
       <div fxFlex>
-        <mat-card class="mat-elevation-z0">
-          <mat-card-title>Done</mat-card-title>
 
-          <mat-card-content>
-            <div cdkDropList id="done" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" class="task-column">
+        <div cdkDropListGroup fxLayout="row" fxLayoutGap="15px" class="task-container">
 
-              <div *ngFor="let item of done">
+          <div fxFlex>
+            <mat-card class="mat-elevation-z0">
+              <mat-card-title>ToDo</mat-card-title>
 
-                <mat-card class="mat-elevation-z0" class="task-card" cdkDrag>
-                  <mat-card-content>
-                    <div fxLayout="row">
-                      <div fxFlex>
+              <mat-card-content>
+                <div cdkDropList id="todo" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)" class="task-column">
+
+                  <div *ngFor="let item of todo">
+
+                    <mat-card class="mat-elevation-z0" class="task-card" cdkDrag>
+                      <mat-card-content>
                         <div fxLayout="row">
-                          <div fxFlex="80%">{{ item.text }}</div>
-                          <div fxFlex="20%"><mat-icon tabIndex="0"
-                            (click)="openConfirmDialog(item, 'done')"
-                            (keyup.enter)="openConfirmDialog(item, 'done')"
-                            (keyup.space)="openConfirmDialog(item, 'done')">delete</mat-icon></div>
+                          <div fxFlex>
+                            <div fxLayout="row">
+                              <div fxFlex="80%">{{ item.text }}</div>
+                              <div fxFlex="20%"><mat-icon tabIndex="0"
+                                (click)="openConfirmDialog(item, 'todo')"
+                                (keyup.enter)="openConfirmDialog(item, 'todo')"
+                                (keyup.space)="openConfirmDialog(item, 'todo')">delete</mat-icon></div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </mat-card-content>
-                  <div class="black-dotted-placeholder" *cdkDragPlaceholder></div>
-                </mat-card>
+                      </mat-card-content>
+                      <div class="black-dotted-placeholder" *cdkDragPlaceholder></div>
+                    </mat-card>
 
-              </div>
+                  </div>
 
-            </div>
-          </mat-card-content>
-        </mat-card>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div fxFlex>
+            <mat-card class="mat-elevation-z0">
+              <mat-card-title>Done</mat-card-title>
+
+              <mat-card-content>
+                <div cdkDropList id="done" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)" class="task-column">
+
+                  <div *ngFor="let item of done">
+
+                    <mat-card class="mat-elevation-z0" class="task-card" cdkDrag>
+                      <mat-card-content>
+                        <div fxLayout="row">
+                          <div fxFlex>
+                            <div fxLayout="row">
+                              <div fxFlex="80%">{{ item.text }}</div>
+                              <div fxFlex="20%"><mat-icon tabIndex="0"
+                                (click)="openConfirmDialog(item, 'done')"
+                                (keyup.enter)="openConfirmDialog(item, 'done')"
+                                (keyup.space)="openConfirmDialog(item, 'done')">delete</mat-icon></div>
+                            </div>
+                          </div>
+                        </div>
+                      </mat-card-content>
+                      <div class="black-dotted-placeholder" *cdkDragPlaceholder></div>
+                    </mat-card>
+
+                  </div>
+
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+        </div>
       </div>
-
     </div>
   </div>
 </div>
