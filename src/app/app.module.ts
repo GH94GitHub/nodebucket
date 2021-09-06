@@ -33,6 +33,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ConfirmTaskDialogComponent } from './shared/confirm-task-dialog/confirm-task-dialog.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { AboutComponent } from './pages/about/about.component';
 
 
 
@@ -47,7 +48,8 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
     CreateTaskDialogComponent,
     ContactComponent,
     ConfirmTaskDialogComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
