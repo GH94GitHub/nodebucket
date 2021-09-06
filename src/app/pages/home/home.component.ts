@@ -12,6 +12,9 @@ import { TaskService } from '../../shared/services/task.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTaskDialogComponent } from '../../shared/create-task-dialog/create-task-dialog.component';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ConfirmTaskDialogComponent } from '../../shared/confirm-task-dialog/confirm-task-dialog.component';
+import { MatMenuItem } from '@angular/material/menu';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +24,7 @@ import { CreateTaskDialogComponent } from '../../shared/create-task-dialog/creat
 export class HomeComponent implements OnInit {
 
   employee: Employee;
+  item: Item;
   todo: Item[];
   done: Item[];
   empId: number;
@@ -53,7 +57,7 @@ export class HomeComponent implements OnInit {
   }
 
 /**
- * Creates dialog, then handles data received (created task);
+ * Opens a dialog box containing a form for users to create a task
  */
   openCreateTaskDialog() {
     const dialogRef = this.dialog.open(CreateTaskDialogComponent, {
@@ -61,30 +65,104 @@ export class HomeComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log('--empId--')
-      console.log(this.empId);
 
-      console.log()
+      // If user entered a task
       if (data) {
-        console.log('--Data Exists--');
-        console.log(data);
-
         this.taskService.createTask(this.empId, data.text).subscribe(res => {
-          console.log('--Inside createTask Result--')
+          console.log('--Employee Created--');
           console.log(res);
-
-          this.employee = res;
-          console.log('--This.employee--')
-          console.log(this.employee);
-        }, err => {
-          console.log('--onError of the createTask service call--');
-          console.log(err)
-        }, () => {
-          console.log('--onComplete--')
-          console.log( data )
-          this.todo.push(data);
+          this.item = res;
+        },
+        err => {},
+        () => {
+          this.todo.push(this.item);
+          console.log('--createTask onComplete Client-Side todo array after push--');
+          console.log(this.todo)
         })
       }
     })
+  }
+
+  /**
+   * Opens a dialog box asking the user to confirm the deletion of a task
+   * @param item
+   * @param targetArray either 'todo' or 'done' specifying which to delete from
+   */
+  openConfirmDialog(item, targetArray: string) {
+    const dialogRef = this.dialog.open( ConfirmTaskDialogComponent);
+
+    dialogRef.afterClosed().subscribe(isConfirmed => {
+
+      // User confirmed the dialog
+      if (isConfirmed) {
+        console.log('--Dialog confirmed--')
+
+        console.log('--Item--')
+        console.log(item);
+
+        // Delete the task
+        this.taskService.deleteTask(this.empId, item._id).subscribe(employee => {
+
+          console.log('--Deleted Task--');
+          console.log(employee);
+
+        }, err => { // Error
+
+          console.log('--Error Deleting Task--');
+          console.log(err)
+
+        }, () => { // onComplete
+
+          // Delete item from 'todo' array
+          if (targetArray === 'todo') {
+            console.log('--item.text--')
+            console.log(item.text);
+            let i = this.todo.indexOf(item);
+            console.log(i);
+
+            this.todo.splice(i, 1);
+          }
+          // Delete item from 'done' array
+          else {
+            let i = this.done.indexOf(item);
+
+            this.done.splice(i, 1);
+          }
+
+        })
+      }
+    });
+  }
+
+  /**
+   * Event called when an item is dropped inside of a cdkDropList
+   * @param e
+   */
+  drop(e: CdkDragDrop<string[]>) {
+    console.log('--Drop Event--');
+    console.log(e);
+
+    // If item never moved dropLists nor index, return
+    if (e.previousContainer === e.container && e.previousIndex === e.currentIndex) {
+      return;
+    }
+    else {
+      // Item was moved to a different location within the same dropList
+      if (e.previousContainer === e.container) {
+        moveItemInArray(e.container.data, e.previousIndex, e.currentIndex);
+      }
+      // Moved from todo -> done or from done -> todo
+      else {
+        transferArrayItem(e.previousContainer.data, e.container.data, e.previousIndex, e.currentIndex)
+      }
+      // Update server state
+      this.taskService.updateTasks(this.empId, {
+        todo: this.todo,
+        done: this.done
+      }).subscribe(employee => {
+        console.log('--Updated employee--');
+        console.log(employee);
+      });
+    }
   }
 }
